@@ -19,7 +19,7 @@ with open("test.txt", "r") as f:
 # Prepare the select_0 support.
 k.select_0.prepare()
 
-# Access the values.
+# Access the values. Currently, no bounds checking is performed.
 k[0]
 k.select_0(1) # Indices are 1-based like in SDSL.
 ```

@@ -25,7 +25,8 @@ cdef class BitVector(object):
 	cdef BvSupport_select_1				select_1
 	# 01 and 10 are missing.
 	
-	def __cinit__(self):
+	def __cinit__(self, size_type size = 0):
+		self.bv = bit_vector(size, 0)
 		self.rank_0 = BvSupport_rank_0()
 		self.rank_1 = BvSupport_rank_1()
 		self.select_0 = BvSupport_select_0()

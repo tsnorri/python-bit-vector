@@ -81,11 +81,11 @@ cdef class BitVector(object):
 		cdef ifstream stream
 		stream.open(path)
 		load_from_file(stream, self.bv)
+		self.set_bit_vector_pointers()
 		self.rank_0.load_from_file(stream)
 		self.rank_1.load_from_file(stream)
 		self.select_0.load_from_file(stream)
 		self.select_1.load_from_file(stream)
-		self.set_bit_vector_pointers()
 	
 	cpdef void write_to_file(self, object path):
 		cdef ofstream stream

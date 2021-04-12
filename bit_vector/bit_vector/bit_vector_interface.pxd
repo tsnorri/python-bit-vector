@@ -25,6 +25,7 @@ cdef extern from "bit_vector_interface.hh" namespace "python_bit_vector":
 		rank_support_v5() except +
 		rank_support_v5(const bit_vector *bv) except +
 		void prepare(const bit_vector &bv) except +
+		void set_vector(const bit_vector *bv) except +
 		size_type rank(size_type i) const
 		size_type call(size_type idx) const
 	
@@ -32,5 +33,6 @@ cdef extern from "bit_vector_interface.hh" namespace "python_bit_vector":
 		select_support_mcl() except +
 		select_support_mcl(const bit_vector *bv) except +
 		void prepare(const bit_vector &bv) except +
+		void set_vector(const bit_vector *bv) except +
 		size_type select(size_type i) const
 		size_type call(size_type idx) const

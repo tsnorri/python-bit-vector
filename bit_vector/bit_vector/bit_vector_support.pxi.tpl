@@ -23,6 +23,7 @@ cdef class BvSupport_${t_name}(object):
 
 	cdef load_from_file(self, ifstream &stream):
 		load_from_file(stream, self.support)
+		self.support.set_vector(self.bv)
 	
 	cdef write_to_file(self, ofstream &stream):
 		write_to_file(stream, self.support)

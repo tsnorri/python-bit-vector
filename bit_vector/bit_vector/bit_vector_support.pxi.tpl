@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Tuukka Norri
+# Copyright (c) 2018–2021 Tuukka Norri
 # This code is licensed under MIT license (see LICENSE for details).
 
 # Generate code for rank and select support.
@@ -20,3 +20,9 @@ cdef class BvSupport_${t_name}(object):
 	
 	def __call__(self, idx):
 		return self.support.call(int(idx))
+
+	cdef load_from_file(self, ifstream &stream):
+		load_from_file(stream, self.support)
+	
+	cdef write_to_file(self, ofstream &stream):
+		write_to_file(stream, self.support)

@@ -1,9 +1,12 @@
-# Copyright (c) 2018 Tuukka Norri
+# Copyright (c) 2018–2021 Tuukka Norri
 # This code is licensed under MIT license (see LICENSE for details).
 
 # cython: language_level=3
+# cython: c_string_type=unicode, c_string_encoding=utf8
 
 from .bit_vector_interface cimport bit_vector, size_type, value_type, rank_support_v5, select_support_mcl, assign, retrieve
+from .fstream cimport ifstream, ofstream
+from .serialization cimport load_from_file, write_to_file
 from .util import decode_string
 from cython.operator cimport dereference as deref
 from libcpp cimport bool
@@ -73,7 +76,26 @@ cdef class BitVector(object):
 		self.rank_1.bv = &self.bv
 		self.select_0.bv = &self.bv
 		self.select_1.bv = &self.bv
+
+	cpdef void load_from_file(self, object path):
+		cdef ifstream stream
+		stream.open(path)
+		load_from_file(stream, self.bv)
+		self.rank_0.load_from_file(stream)
+		self.rank_1.load_from_file(stream)
+		self.select_0.load_from_file(stream)
+		self.select_1.load_from_file(stream)
+		self.set_bit_vector_pointers()
 	
+	cpdef void write_to_file(self, object path):
+		cdef ofstream stream
+		stream.open(path)
+		write_to_file(stream, self.bv)
+		self.rank_0.write_to_file(stream)
+		self.rank_1.write_to_file(stream)
+		self.select_0.write_to_file(stream)
+		self.select_1.write_to_file(stream)
+
 	cpdef void load_from_text_file(self, object f):
 		# Check the size.
 		f.seek(0, os.SEEK_END)

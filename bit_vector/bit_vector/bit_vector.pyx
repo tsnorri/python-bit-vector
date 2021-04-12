@@ -95,26 +95,3 @@ cdef class BitVector(object):
 		self.rank_1.write_to_file(stream)
 		self.select_0.write_to_file(stream)
 		self.select_1.write_to_file(stream)
-
-	cpdef void load_from_text_file(self, object f):
-		# Check the size.
-		f.seek(0, os.SEEK_END)
-		size = f.tell()
-		f.seek(0)
-	
-		self.bv = bit_vector(size, 0)
-		self.set_bit_vector_pointers()
-		
-		# Read the contents. This is rather inefficient, though. A word could be filled at a time, instead.
-		idx = 0
-		while True:
-			c = decode_string(f.read(1))
-			if 0 == len(c):
-				break
-			
-			if '1' == c:
-				assign(self.bv, idx, 1)
-			elif '0' != c:
-				break
-			
-			idx += 1

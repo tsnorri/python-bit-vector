@@ -10,16 +10,19 @@ A simple Python 3 wrapper for SDSL’s bit vectors and rank and select support.
 ```python
 from bit_vector import BitVector
 
-# Load a bit vector from a text file (zeros and ones).
-k = BitVector()
-with open("test.txt", "r") as f:
-	k.load_from_text_file(f)
+# Create a bit vector.
+k = BitVector(5)
+k[1] = True
+k[3] = True
 
 # Useful properties include rank_0, rank_1, select_0, select_1.
-# Prepare the select_0 support.
-k.select_0.prepare()
+# Prepare the select_1 support.
+k.select_1.prepare()
 
 # Access the values. Currently, no bounds checking is performed.
-k[0]
-k.select_0(1) # Indices are 1-based like in SDSL.
+for i in range(5):
+	print(k[i])
+
+print(k.select_1(1)) # Indices for rank and select are 1-based like in SDSL.
+print(k.select_1(2))
 ```
